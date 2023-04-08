@@ -148,7 +148,7 @@ public class Node2 {
                             } else {
                                 new PrintWriter("log.txt").close();
                                 FileWriter myWriter = new FileWriter("log.txt");
-                                myWriter.write("Hello, World!");
+                                myWriter.write("Hello, Node2!");
                                 myWriter.close();
                                 System.out.println("Successfully wrote to log file.");
                             }
