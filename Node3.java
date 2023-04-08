@@ -3,6 +3,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.*;
 import java.util.*;
+import java.io.*;
 
 public class Node3 {
     public static void main(String[] args) {
@@ -136,6 +137,25 @@ public class Node3 {
                     
                     else if ((char)message[8] == (char)('1')){
                         System.out.println("LOG PROTOCOL");
+                        try {
+                            File myObj = new File("log.txt");
+                            if (myObj.createNewFile()) {
+                              System.out.println("File created: " + myObj.getName());
+                              FileWriter myWriter = new FileWriter("log.txt");
+                                myWriter.write("Hello, World!");
+                                myWriter.close();
+                                System.out.println("Successfully wrote to log file.");
+                            } else {
+                                new PrintWriter("log.txt").close();
+                                FileWriter myWriter = new FileWriter("log.txt");
+                                myWriter.write("Hello, World!");
+                                myWriter.close();
+                                System.out.println("Successfully wrote to log file.");
+                            }
+                          } catch (IOException e) {
+                            System.out.println("An error occurred.");
+                            e.printStackTrace();
+                          }
     
                     }
                     else if ((char)message[8] == (char)('2')){
