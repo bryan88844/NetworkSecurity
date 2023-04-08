@@ -16,7 +16,7 @@ public class Node1 {
             byte[] dstIP = {'0', 'x', '2', 'A'};
             byte[] srcIP = {'0', 'x', '1', 'A'};
 
-            byte[] pingProtocol = {'0'};
+            byte[] pingProtocol = {'1'};
             byte[] dataLength = {'1', '7'};
 
 
