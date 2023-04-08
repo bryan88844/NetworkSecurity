@@ -13,7 +13,7 @@ public class Node1 {
             // Define the source MAC address as "N1"
             byte[] srcMAC = {'N', '1'};
 
-            byte[] dstIP = {'0', 'x', '2', 'A'};
+            byte[] dstIP = {'0', 'x', '2', 'B'};
             byte[] srcIP = {'0', 'x', '1', 'A'};
 
             byte[] pingProtocol = {'0'};
