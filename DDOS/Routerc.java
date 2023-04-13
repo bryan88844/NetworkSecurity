@@ -40,10 +40,10 @@ public class Routerc {
                         buffer[23] };
 
                 System.out.println((char) srcIP[0] + "" + (char) srcIP[1] + "" + (char) srcIP[2] + "" + (char) srcIP[3]
-                        + "|" + (char) dstIP[0]
-                        + "" + (char) dstIP[1] + "" + (char) dstIP[2] + "" + (char) dstIP[3] + "|" + (char) message[0]
-                        + "|" +
-                        (char) message[1] + (char) message[2] + "|" + (char) message[3] + (char) message[4]
+                        + "|" + (char) dstIP[0] + "" + (char) dstIP[1] + "" + (char) dstIP[2] + "" + (char) dstIP[3] 
+                        + "|" + (char) message[0]
+                        + "|" + (char) message[1] + (char) message[2] 
+                        + "|" + (char) message[3] + (char) message[4]
                         + (char) message[5] + (char) message[6]
                         + (char) message[7] + (char) message[8] + (char) message[9] + (char) message[10]
                         + (char) message[11] + (char) message[12]
@@ -53,6 +53,7 @@ public class Routerc {
                     System.out.println("Forwarding packet to R2");
 
                     try {
+
                         // Define the destination MAC address as "R1"
                         String destAddressStr = "ff:ff:ff:ff:ff:ff";
                         byte[] dstMAC2 = (destAddressStr).getBytes();
