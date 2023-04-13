@@ -42,16 +42,10 @@ public class Node3b {
                     if ((char)message[8] == (char)('0')){
                         System.out.println("PING PROTOCOL");
                         try {
-                            // Define the destination MAC address as "R1"
-                            byte[] dstMAC = {'R', '2'};
-                            
-                            // Define the source MAC address as "N1"
-                            byte[] srcMAC = {'N', '3'};
-                
                             byte[] dstIP = {'0', 'x', '1', 'A'};
                             byte[] srcIP = {'0', 'x', '2', 'B'};
                 
-                            byte[] pingProtocol = {'0'};
+                            byte[] pingProtocol = {'2'};
                             byte[] dataLength = {'1', '3'};
                 
                 
@@ -68,10 +62,10 @@ public class Node3b {
                             
                             // Set the destination address and port to send the packet to the Ethernet emulator
                             packet.setAddress(InetAddress.getByName("127.0.0.1"));
-                            packet.setPort(501);
+                            packet.setPort(505);
                             
-                            String message2 = "Hello, Node3!";
-                            byte[] msg = message2.getBytes();
+                            String message0 = "Hello, Node3!";
+                            byte[] msg = message0.getBytes();
                             
                             
                             // Create a new DatagramSocket to send the packet
@@ -79,16 +73,16 @@ public class Node3b {
                             frameData[1] = srcIP[1];
                             frameData[2] = srcIP[2];
                             frameData[3] = srcIP[3];
-
+                
                             frameData[4] = dstIP[0];
                             frameData[5] = dstIP[1];
                             frameData[6] = dstIP[2];
                             frameData[7] = dstIP[3];
-
+                
                             frameData[8] = pingProtocol[0];
                             frameData[9] = dataLength[0];
                             frameData[10] = dataLength[1];
-
+                
                             frameData[11] = msg[0]; 
                             frameData[12] = msg[1];
                             frameData[13] = msg[2];
@@ -102,8 +96,6 @@ public class Node3b {
                             frameData[21] = msg[10];
                             frameData[22] = msg[11];
                             frameData[23] = msg[12];
-                                
-                
                 
                             DatagramSocket socket = new DatagramSocket();
                             
@@ -117,6 +109,7 @@ public class Node3b {
                             (char)frameData[14]+(char)frameData[15]+ (char)frameData[16] + (char)frameData[17]+ (char)frameData[18]
                             + (char)frameData[19]+ (char)frameData[20]+ (char)frameData[21]+ (char)frameData[22]+ (char)frameData[23]);
                             System.out.println("Packet Sent!");
+                            
                             
                             // Close the socket
                             socket.close();
