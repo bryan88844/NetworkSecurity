@@ -13,7 +13,7 @@ public class Node1b {
             byte[] srcIP = {'0', 'x', '1', 'A'};
 
             byte[] pingProtocol = {'2'};
-            byte[] dataLength = {'1', '7'};
+            byte[] dataLength = {'1', '3'};
 
 
             
@@ -31,45 +31,38 @@ public class Node1b {
             packet.setAddress(InetAddress.getByName("127.0.0.1"));
             packet.setPort(501);
             
-            String message0 = "Hello, Node2!";
+            String message0 = "Hello, Node3!";
             byte[] msg = message0.getBytes();
             
             
             // Create a new DatagramSocket to send the packet
-            frameData[0] = dstMAC[0];
-            frameData[1] = dstMAC[1];
-            frameData[2] = srcMAC[0];
-            frameData[3] = srcMAC[1];
+            frameData[0] = srcIP[0];
+            frameData[1] = srcIP[1];
+            frameData[2] = srcIP[2];
+            frameData[3] = srcIP[3];
 
-            frameData[4] = srcIP[0];
-            frameData[5] = srcIP[1];
-            frameData[6] = srcIP[2];
-            frameData[7] = srcIP[3];
+            frameData[4] = dstIP[0];
+            frameData[5] = dstIP[1];
+            frameData[6] = dstIP[2];
+            frameData[7] = dstIP[3];
 
-            frameData[8] = dstIP[0];
-            frameData[9] = dstIP[1];
-            frameData[10] = dstIP[2];
-            frameData[11] = dstIP[3];
+            frameData[8] = pingProtocol[0];
+            frameData[9] = dataLength[0];
+            frameData[10] = dataLength[1];
 
-            frameData[12] = pingProtocol[0];
-            frameData[13] = dataLength[0];
-            frameData[14] = dataLength[1];
-
-
-
-            frameData[15] = msg[0]; 
-            frameData[16] = msg[1];
-            frameData[17] = msg[2];
-            frameData[18] = msg[3];
-            frameData[19] = msg[4];
-            frameData[20] = msg[5];
-            frameData[21] = msg[6]; 
-            frameData[22] = msg[7];
-            frameData[23] = msg[8];
-            frameData[24] = msg[9];
-            frameData[25] = msg[10];
-            frameData[26] = msg[11];
-            frameData[27] = msg[12];
+            frameData[11] = msg[0]; 
+            frameData[12] = msg[1];
+            frameData[13] = msg[2];
+            frameData[14] = msg[3];
+            frameData[15] = msg[4];
+            frameData[16] = msg[5];
+            frameData[17] = msg[6]; 
+            frameData[18] = msg[7];
+            frameData[19] = msg[8];
+            frameData[20] = msg[9];
+            frameData[21] = msg[10];
+            frameData[22] = msg[11];
+            frameData[23] = msg[12];
 
             DatagramSocket socket = new DatagramSocket(499);
             
@@ -77,12 +70,11 @@ public class Node1b {
             socket.send(packet);
 
             System.out.println("Sending packet: ");
-            System.out.println((char)frameData[2] + "" + (char)frameData[3] + "|" + (char)frameData[0] + (char)frameData[1] + "|"
-            + (char)frameData[4] + (char)frameData[5]+ (char)frameData[6]+ (char)frameData[7]+ "|" + (char)frameData[8]
-            + (char)frameData[9]+ (char)frameData[10]+ (char)frameData[11]+ "|" + (char)frameData[12]+ "|" + (char)frameData[13]
-            + (char)frameData[14]+ "|" + (char)frameData[15]+ (char)frameData[16] + (char)frameData[17]+ (char)frameData[18]
-            + (char)frameData[19]+ (char)frameData[20]+ (char)frameData[21]+ (char)frameData[22]+ (char)frameData[23]+ (char)frameData[24]
-            + (char)frameData[25]+ (char)frameData[26]+ (char)frameData[27]);
+            System.out.println(""+(char)frameData[0] + ""+ (char)frameData[1]+""+ (char)frameData[2]+ ""+(char)frameData[3]+ "|" + (char)frameData[4]
+            + (char)frameData[5]+ (char)frameData[6]+ (char)frameData[7]+ "|" + (char)frameData[8]+ "|" + (char)frameData[9]
+            + (char)frameData[10]+ "|" + (char)frameData[11]+(char)frameData[12]+(char)frameData[13]+
+            (char)frameData[14]+(char)frameData[15]+ (char)frameData[16] + (char)frameData[17]+ (char)frameData[18]
+            + (char)frameData[19]+ (char)frameData[20]+ (char)frameData[21]+ (char)frameData[22]+ (char)frameData[23]);
             System.out.println("Packet Sent!");
             
             // Close the socket
@@ -95,12 +87,12 @@ public class Node1b {
             DatagramPacket ethPacket = new DatagramPacket(buffer, buffer.length);
 
             while (true) {
-                System.out.println("Listening to Ethernet frames...");
+                System.out.println("Listening to IP Packets...");
                 socket.receive(ethPacket);
                 System.out.println("Receiving incoming packet...");
                 
-                // Get the source and destination MAC addresses from the Ethernet frame
-            System.out.println("Received ethernet frame: ");
+                
+            System.out.println("Received IP Packet: ");
             byte[] message = new byte[]{buffer[19],buffer[20],buffer[21],buffer[22],buffer[23],buffer[24],buffer[25],buffer[26],buffer[27],
                 buffer[28],buffer[29], buffer[30], buffer[31], buffer[32], buffer[33], buffer[34], buffer[35], buffer[36]
                 , buffer[37], buffer[38], buffer[39], buffer[40], buffer[41], buffer[42]};

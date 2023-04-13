@@ -24,34 +24,30 @@ public class Routerb {
             
             // Receive Ethernet frames in a loop
             while (true) {
-                System.out.println("Listening to Ethernet frames...");
+                System.out.println("Listening to IP Packets...");
                 ethSocket.receive(ethPacket);
                 System.out.println("Receiving incoming packet...");
    
                 
                 // Get the source and destination MAC addresses from the Ethernet frame
-                System.out.println("Received ethernet frame: ");
-                byte[] dstMAC = new byte[]{buffer[0], buffer[1]};
-                byte[] srcMAC = new byte[]{buffer[2], buffer[3]};
-                byte[] dstIP = new byte[]{buffer[8], buffer[9],buffer[10],buffer[11]};
-                byte[] srcIP = new byte[]{buffer[4], buffer[5], buffer[6], buffer[7]};
+                System.out.println("Received IP Packet: ");
+
+                byte[] dstIP = new byte[]{buffer[4], buffer[5],buffer[6],buffer[7]};
+                byte[] srcIP = new byte[]{buffer[0], buffer[1], buffer[2], buffer[3]};
                 
-                byte[] message = new byte[]{buffer[4], buffer[5], buffer[6],buffer[7],buffer[8],buffer[9],buffer[10],buffer[11],buffer[12],buffer[13],buffer[14],
-                    buffer[15],buffer[16],buffer[17], buffer[18], buffer[19],buffer[20],buffer[21],buffer[22],buffer[23],buffer[24],buffer[25],buffer[26],buffer[27],
-                    buffer[28],buffer[29], buffer[30]};
+                byte[] message = new byte[]{buffer[8],buffer[9],buffer[10],buffer[11],buffer[12],buffer[13],buffer[14],
+                    buffer[15],buffer[16],buffer[17], buffer[18], buffer[19],buffer[20],buffer[21],buffer[22],buffer[23]};
 
 
-                System.out.println((char)srcMAC[0] + "" + (char)srcMAC[1] + "|" + (char)dstMAC[0] 
-                + "" + (char)dstMAC[1] + "|" + ethPacket.getLength() + "|" + (char)message[0] + 
-                (char)message[1] + (char)message[2] + (char)message[3]+ "|" + (char)message[4] + (char)message[5]+ (char)message[6]
-                + (char)message[7]  + "|" + (char)message[8]+ "|" + (char)message[9]+ (char)message[10]+ "|" + (char)message[11]+ (char)message[12] 
-                + (char)message[13]+ (char)message[14] + (char)message[15]+ (char)message[16]+ (char)message[17]+ (char)message[18]+ (char)message[19]+ (char)message[20] 
-                + (char)message[21]+ (char)message[22] + (char)message[23]
-                );
+                System.out.println((char)srcIP[0] + "" + (char)srcIP[1]+ "" + (char)srcIP[2] + "" + (char)srcIP[3]+ "|" + (char)dstIP[0] 
+                + "" + (char)dstIP[1]+ "" + (char)dstIP[2] + "" + (char)dstIP[3]+ "|" + (char)message[0] + "|" +
+                (char)message[1] + (char)message[2] + "|" + (char)message[3] + (char)message[4] + (char)message[5]+ (char)message[6]
+                + (char)message[7]  + (char)message[8]+ (char)message[9]+ (char)message[10] + (char)message[11]+ (char)message[12] 
+                + (char)message[13]+ (char)message[14] + (char)message[15]);
 
 
-                if ((char)message[6] == (char)'2'){
-                    System.out.println("Forwarding packet to network Ox2");
+                if ((char)dstIP[2] == (char)'2'){
+                    System.out.println("Forwarding packet to R2");
 
                     try {
                         // Define the destination MAC address as "R1"
@@ -66,7 +62,7 @@ public class Routerb {
                         // byte[] srcIP = {'0', 'x', '1', 'A'};
             
                         byte[] pingProtocol = {'2'};
-                        byte[] dataLength = {'1', '7'};
+                        byte[] dataLength = {'1', '3'};
             
 
                         // System.out.println((char)dstMAC2[2]);
@@ -148,12 +144,10 @@ public class Routerb {
 
             
                         System.out.println("Sending packet: ");
-                        System.out.println((char)frameData[17] + "" + (char)frameData[18] + "|"
-
-                        + (char)frameData[0] + (char)frameData[1] + (char)frameData[2] + (char)frameData[3]+ (char)frameData[4] + (char)frameData[5]+ (char)frameData[6] + (char)frameData[7]+ (char)frameData[8] + (char)frameData[9]+ (char)frameData[10] + (char)frameData[11]+ (char)frameData[12] + (char)frameData[13]+ (char)frameData[14] + (char)frameData[15]+ (char)frameData[16] + "|"
+                        System.out.println(
 
 
-                        +  (char)frameData[19]+ (char)frameData[20]+  (char)frameData[21]+ (char)frameData[22] + "|"
+                          (char)frameData[19]+ ""+ (char)frameData[20]+ ""+ (char)frameData[21]+ ""+(char)frameData[22] + "|"
 
                         +   (char)frameData[23]+ (char)frameData[24]+  (char)frameData[25]+ (char)frameData[26] + "|"
 
@@ -165,31 +159,34 @@ public class Routerb {
                         + (char)frameData[38]+ (char)frameData[39]+ (char)frameData[40]+ (char)frameData[41]+ (char)frameData[42]);
 
 
-                        // Set the destination address and port to send the packet to the Ethernet emulator
-                        packet.setAddress(InetAddress.getByName("127.0.0.1"));
-                        packet.setPort(502);
-                        
-                        System.out.println("Packet broadcasted!");
-                        // Send the packet to the Ethernet emulator
-                        socket.send(packet);
+                        // if dest IP belongs to Node 2, send to Node 2
+                        if ((char)frameData[25] == '2' && (char)frameData[26] == 'A'){
+                            packet.setAddress(InetAddress.getByName("127.0.0.1"));
+                            packet.setPort(502);
+                            
+                            System.out.println("Packet sent!");
+                            // Send the packet to the Ethernet emulator
+                            socket.send(packet);
+                        }
+                        else if ((char)frameData[25] == '2' && (char)frameData[26] == 'B'){
+                            packet.setAddress(InetAddress.getByName("127.0.0.1"));
+                            packet.setPort(503);
+                            
+                            System.out.println("Packet sent!");
+                            // Send the packet to the Ethernet emulator
+                            socket.send(packet);
+                        }
 
-                        // Set the destination address and port to send the packet to the Ethernet emulator
-                        packet.setAddress(InetAddress.getByName("127.0.0.1"));
-                        packet.setPort(503);
-                        
-                        
-                        // Send the packet to the Ethernet emulator
-                        socket.send(packet);
-                        
+                       
                         // Close the socket
                         socket.close();
                         
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                } else if ((char)message[6] == (char)'1') {
+                } else if ((char)dstIP[2] == (char)'1') {
                     try {
-                        System.out.println("Forwarding packet to network Ox1");
+                        System.out.println("Forwarding packet to R1");
                         // Define the destination MAC address as "R1"
                         String destAddressStr = "ff:ff:ff:ff:ff:ff";
                         byte[] dstMAC2 = (destAddressStr).getBytes();
@@ -202,7 +199,7 @@ public class Routerb {
                         // byte[] srcIP = {'0', 'x', '1', 'A'};
             
                         byte[] pingProtocol = {'2'};
-                        byte[] dataLength = {'1', '7'};
+                        byte[] dataLength = {'1', '3'};
             
 
                         // System.out.println((char)dstMAC2[2]);
@@ -218,7 +215,7 @@ public class Routerb {
                         DatagramPacket packet = new DatagramPacket(frameData, frameData.length);
                         
               
-                        String message2 = "Hello, Node1!";
+                        String message2 = "Hello, Node3!";
                         byte[] msg = message2.getBytes();
                         
                         
@@ -284,12 +281,10 @@ public class Routerb {
 
             
                         System.out.println("Sending packet: ");
-                        System.out.println((char)frameData[17] + "" + (char)frameData[18] + "|"
-
-                        + (char)frameData[0] + (char)frameData[1] + (char)frameData[2] + (char)frameData[3]+ (char)frameData[4] + (char)frameData[5]+ (char)frameData[6] + (char)frameData[7]+ (char)frameData[8] + (char)frameData[9]+ (char)frameData[10] + (char)frameData[11]+ (char)frameData[12] + (char)frameData[13]+ (char)frameData[14] + (char)frameData[15]+ (char)frameData[16] + "|"
+                        System.out.println(
 
 
-                        +  (char)frameData[19]+ (char)frameData[20]+  (char)frameData[21]+ (char)frameData[22] + "|"
+                          (char)frameData[19]+ (char)frameData[20]+  (char)frameData[21]+ (char)frameData[22] + "|"
 
                         +   (char)frameData[23]+ (char)frameData[24]+  (char)frameData[25]+ (char)frameData[26] + "|"
 
@@ -305,7 +300,7 @@ public class Routerb {
                         packet.setAddress(InetAddress.getByName("127.0.0.1"));
                         packet.setPort(499);
                         
-                        System.out.println("Packet broadcasted!");
+                        System.out.println("Packet sent!");
                         // Send the packet to the Ethernet emulator
                         socket.send(packet);
                         
