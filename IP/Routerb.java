@@ -61,7 +61,7 @@ public class Routerb {
                         // byte[] dstIP = {'0', 'x', '2', 'A'};
                         // byte[] srcIP = {'0', 'x', '1', 'A'};
             
-                        byte[] pingProtocol = {'2'};
+                        byte[] pingProtocol = {'0'};
                         byte[] dataLength = {'1', '3'};
             
 
@@ -78,7 +78,7 @@ public class Routerb {
                         DatagramPacket packet = new DatagramPacket(frameData, frameData.length);
                         
               
-                        String message2 = "Hello, Node2!";
+                        String message2 = "Hello, Node3!";
                         byte[] msg = message2.getBytes();
                         
                         
@@ -198,7 +198,7 @@ public class Routerb {
                         // byte[] dstIP = {'0', 'x', '2', 'A'};
                         // byte[] srcIP = {'0', 'x', '1', 'A'};
             
-                        byte[] pingProtocol = {'2'};
+                        byte[] pingProtocol = {'0'};
                         byte[] dataLength = {'1', '3'};
             
 
