@@ -51,7 +51,7 @@ public class Node2b {
                             byte[] dstIP = {'0', 'x', '1', 'A'};
                             byte[] srcIP = {'0', 'x', '2', 'A'};
                 
-                            byte[] pingProtocol = {'0'};
+                            byte[] pingProtocol = {'2'};
                             byte[] dataLength = {'1', '3'};
                 
                 
