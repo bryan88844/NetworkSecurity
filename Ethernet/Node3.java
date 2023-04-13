@@ -1,0 +1,179 @@
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.*;
+import java.util.*;
+import java.io.*;
+
+public class Node3 {
+    public static void main(String[] args) {
+        
+            try{
+                DatagramSocket ethSocket = new DatagramSocket(503);
+
+                // Create a buffer to hold the Ethernet frame data
+                byte[] buffer = new byte[1024];
+                
+                // Create a DatagramPacket to receive Ethernet frames
+                DatagramPacket ethPacket = new DatagramPacket(buffer, buffer.length);
+    
+                while (true) {
+                    System.out.println("Listening to Ethernet frames...");
+                    ethSocket.receive(ethPacket);
+                    System.out.println("Receiving incoming packet...");
+                    byte[] message = new byte[]{buffer[19],buffer[20],buffer[21],buffer[22],buffer[23],buffer[24],buffer[25],buffer[26],buffer[27],
+                        buffer[28],buffer[29], buffer[30], buffer[31], buffer[32], buffer[33], buffer[34], buffer[35], buffer[36]
+                        , buffer[37], buffer[38], buffer[39], buffer[40], buffer[41], buffer[42]};
+                    // Get the source and destination MAC addresses from the Ethernet frame
+
+                // checking if dest ip is node3 ip, if not drop
+                if ((char)message[7] == (char)'B'){
+                   
+    
+    
+                    System.out.println( (char)message[0] + "" + (char)message[1] + "" + (char)message[2] + "" + (char)message[3]+ "|" 
+                    + (char)message[4] + (char)message[5]+ (char)message[6] + (char)message[7]  + "|" 
+                    + (char)message[8]+ "|" 
+                    + (char)message[9]+ (char)message[10]+ "|" 
+                    + (char)message[11]+ (char)message[12] 
+                    + (char)message[13]+ (char)message[14] + (char)message[15]+ (char)message[16]+ (char)message[17]+ (char)message[18]+ (char)message[19]+ (char)message[20] 
+                    + (char)message[21]+ (char)message[22] + (char)message[23]
+                    );
+                    // if ((char)message[8] == (char)('0')){
+                    //     System.out.println("PING PROTOCOL");
+                    //     try {
+                    //         // Define the destination MAC address as "R1"
+                    //         byte[] dstMAC = {'R', '2'};
+                            
+                    //         // Define the source MAC address as "N1"
+                    //         byte[] srcMAC = {'N', '3'};
+                
+                    //         byte[] dstIP = {'0', 'x', '1', 'A'};
+                    //         byte[] srcIP = {'0', 'x', '2', 'B'};
+                
+                    //         byte[] pingProtocol = {'0'};
+                    //         byte[] dataLength = {'1', '7'};
+                
+                
+                            
+                    //         // Define the Ethernet frame data as a byte array
+                    //         byte[] frameData = {(byte) 0x00, (byte) 0x01, (byte) 0x02, (byte) 0x03, (byte) 0x04, (byte) 0x05, 
+                    //                             (byte) 0x06, (byte) 0x07, (byte) 0x08, (byte) 0x09, (byte) 0x0a, (byte) 0x0b, 
+                    //                             (byte) 0x08, (byte) 0x00, (byte) 0x45, (byte) 0x00, (byte) 0x00, (byte) 0x00
+                    //                             , (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00
+                    //                             , (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00};
+                            
+                    //         // Create a new DatagramPacket containing the Ethernet frame data
+                    //         DatagramPacket packet = new DatagramPacket(frameData, frameData.length);
+                            
+                    //         // Set the destination address and port to send the packet to the Ethernet emulator
+                    //         packet.setAddress(InetAddress.getByName("127.0.0.1"));
+                    //         packet.setPort(501);
+                            
+                    //         String message2 = "Hello, Node3!";
+                    //         byte[] msg = message2.getBytes();
+                            
+                            
+                    //         // Create a new DatagramSocket to send the packet
+                    //         frameData[0] = dstMAC[0];
+                    //         frameData[1] = dstMAC[1];
+                    //         frameData[2] = srcMAC[0];
+                    //         frameData[3] = srcMAC[1];
+                
+                    //         frameData[4] = srcIP[0];
+                    //         frameData[5] = srcIP[1];
+                    //         frameData[6] = srcIP[2];
+                    //         frameData[7] = srcIP[3];
+                
+                    //         frameData[8] = dstIP[0];
+                    //         frameData[9] = dstIP[1];
+                    //         frameData[10] = dstIP[2];
+                    //         frameData[11] = dstIP[3];
+                
+                    //         frameData[12] = pingProtocol[0];
+                    //         frameData[13] = dataLength[0];
+                    //         frameData[14] = dataLength[1];
+                
+                
+                
+                    //         frameData[15] = msg[0]; 
+                    //         frameData[16] = msg[1];
+                    //         frameData[17] = msg[2];
+                    //         frameData[18] = msg[3];
+                    //         frameData[19] = msg[4];
+                    //         frameData[20] = msg[5];
+                    //         frameData[21] = msg[6]; 
+                    //         frameData[22] = msg[7];
+                    //         frameData[23] = msg[8];
+                    //         frameData[24] = msg[9];
+                    //         frameData[25] = msg[10];
+                    //         frameData[26] = msg[11];
+                    //         frameData[27] = msg[12];
+                
+                
+                
+                    //         DatagramSocket socket = new DatagramSocket();
+                            
+                    //         // Send the packet to the Ethernet emulator
+                    //         socket.send(packet);
+                
+                    //         System.out.println("Sending packet: ");
+                    //         System.out.println((char)frameData[2] + "" + (char)frameData[3] + "|" + (char)frameData[0] + (char)frameData[1] + "|"
+                    //         + (char)frameData[4] + (char)frameData[5]+ (char)frameData[6]+ (char)frameData[7]+ "|" + (char)frameData[8]
+                    //         + (char)frameData[9]+ (char)frameData[10]+ (char)frameData[11]+ "|" + (char)frameData[12]+ "|" + (char)frameData[13]
+                    //         + (char)frameData[14]+ "|" + (char)frameData[15]+ (char)frameData[16] + (char)frameData[17]+ (char)frameData[18]
+                    //         + (char)frameData[19]+ (char)frameData[20]+ (char)frameData[21]+ (char)frameData[22]+ (char)frameData[23]+ (char)frameData[24]
+                    //         + (char)frameData[25]+ (char)frameData[26]+ (char)frameData[27]);
+                    //         System.out.println("Packet Sent!");
+                            
+                    //         // Close the socket
+                    //         socket.close();
+                            
+                    //     } catch (Exception e) {
+                    //         e.printStackTrace();
+                    //     }
+                    // }
+                        
+                    
+                    // else if ((char)message[8] == (char)('1')){
+                    //     System.out.println("LOG PROTOCOL");
+                    //     try {
+                    //         File myObj = new File("log.txt");
+                    //         if (myObj.createNewFile()) {
+                    //           System.out.println("File created: " + myObj.getName());
+                    //           FileWriter myWriter = new FileWriter("log.txt");
+                    //             myWriter.write("Hello, World!");
+                    //             myWriter.close();
+                    //             System.out.println("Successfully wrote to log file.");
+                    //         } else {
+                    //             new PrintWriter("log.txt").close();
+                    //             FileWriter myWriter = new FileWriter("log.txt");
+                    //             myWriter.write("Hello, Node3!");
+                    //             myWriter.close();
+                    //             System.out.println("Successfully wrote to log file.");
+                    //         }
+                    //       } catch (IOException e) {
+                    //         System.out.println("An error occurred.");
+                    //         e.printStackTrace();
+                    //       }
+    
+                    // }
+                    // else if ((char)message[8] == (char)('2')){
+                    //     System.out.println("KILL PROTOCOL");
+                    //     ethSocket.close();
+                    // }
+    
+    
+                } else {
+                System.out.println("Mismatched Destination IP! Package Dropped! ");
+                }
+
+               
+                }
+    
+            }
+         catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

@@ -65,7 +65,7 @@ public class Router {
                         // byte[] dstIP = {'0', 'x', '2', 'A'};
                         // byte[] srcIP = {'0', 'x', '1', 'A'};
             
-                        byte[] pingProtocol = {'1'};
+                        byte[] pingProtocol = {'2'};
                         byte[] dataLength = {'1', '7'};
             
 
@@ -201,7 +201,7 @@ public class Router {
                         // byte[] dstIP = {'0', 'x', '2', 'A'};
                         // byte[] srcIP = {'0', 'x', '1', 'A'};
             
-                        byte[] pingProtocol = {'1'};
+                        byte[] pingProtocol = {'2'};
                         byte[] dataLength = {'1', '7'};
             
 
