@@ -127,7 +127,7 @@ public class Routerb {
                 } else if ((char)dstIP[2] == (char)'1') {
                     try {
                         System.out.println("Forwarding packet to Node1");
-                        byte[] pingProtocol = {'2'};
+                        // byte[] pingProtocol = {'2'};
                         byte[] dataLength = {'1', '3'};
             
             

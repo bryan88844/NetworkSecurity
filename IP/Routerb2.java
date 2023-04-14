@@ -191,7 +191,7 @@ public class Routerb2 {
                         byte[] dstIP2 = {'0', 'x', '1', 'A'};
                         byte[] srcIP2 = {'0', 'x', '2', 'B'};
             
-                        byte[] pingProtocol = {'2'};
+                        // byte[] pingProtocol = {'2'};
                         byte[] dataLength = {'1', '3'};
             
             
